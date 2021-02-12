@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -136,12 +136,15 @@ class Login extends Component {
   loginSet = async(data) => {
     const response = await fetch(`${process.env.REACT_APP_API}/v3/auth/login`, {
         method:"POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(data)
     })
 
-    const resData = await response.json()
-    
-    if (!resData.error) {
+    if (response.ok) {
+      localStorage.setItem('Authorization', response.headers.get('Vojo-Authorization'))
       await this.setState({
         loginData: {
           error: null,
@@ -150,6 +153,7 @@ class Login extends Component {
         }
       })
     } else {
+      const resData = await response.json()
       console.log(resData)
       await this.setState({
         loginData: {
@@ -159,9 +163,13 @@ class Login extends Component {
         }
       })
     }
+
   }
 
   render () {
+    if(this.state.loginData.success) {
+      return <Redirect to="/jobs"/>
+    }
     return (
       <Container maxWidth="full">
         <Container maxWidth="full">
