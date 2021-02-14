@@ -1,4 +1,5 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
+import JobsTable from "./JobsTable";
 export default class JobsView extends Component {
     state = {
         jobs: [
@@ -30,20 +31,7 @@ export default class JobsView extends Component {
     render() {
         return <div>
             <h1>Tela de Jobs</h1>
-            <table>
-                <tr>
-                    <th>Título</th>
-                    <th>Empresa</th>
-                </tr>
-                {this.state.jobs.map(job => {
-                    return (
-                        <tr>
-                            <td>{job.title}</td>V
-                            <td>{job.company}</td>
-                        </tr>
-                    )
-                })}
-            </table>
+            <JobsTable jobs={this.state.jobs}/>
         </div>
     }
 }
