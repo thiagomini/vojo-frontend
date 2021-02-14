@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import JobsTable from "./JobsTable";
+import JobCard from "./JobCard";
 export default class JobsView extends Component {
     state = {
         jobs: [

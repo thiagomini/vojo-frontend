@@ -13,6 +13,7 @@ class JobsTable extends Component {
                         <th>Título</th>
                         <th>Empresa</th>
                         <th>Requisitos</th>
+                        <th>Remuneração</th>
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>

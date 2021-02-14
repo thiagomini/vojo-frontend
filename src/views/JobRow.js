@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import JobRequirementsList from "./JobRequirementsList";
+import JobCompensantion from "./JobCompensantion";
 
 class JobRow extends Component {
     render() {
@@ -10,6 +11,9 @@ class JobRow extends Component {
                 <td>{job.company}</td>
                 <JobRequirementsList
                     requirements={job.requirements}
+                />
+                <JobCompensantion
+                    compensation = {job.compensation}
                 />
             </tr>
         );

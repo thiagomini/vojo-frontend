@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import '../style/JobCard.css';
+import JobCardHeader from "./JobCardHeader";
 
 class JobCard extends Component {
     state = {
@@ -7,8 +9,7 @@ class JobCard extends Component {
     render() {
         return (
             <div className="Card">
-                <span>{this.state.job.title}</span>
-                <span>{this.state.job.company}</span>
+               <JobCardHeader job={this.state.job}/>
             </div>
         );
     }
