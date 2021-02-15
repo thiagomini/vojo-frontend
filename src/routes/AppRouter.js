@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Homepage from '../views/Homepage'
 import Login from '../views/Login'
-import JobsView from '../views/JobsView'
+import JobsView from '../views/job/JobsView'
 
 export default function AppRouter () {
   return (
