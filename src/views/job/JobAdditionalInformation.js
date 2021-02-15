@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Box, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@material-ui/core";
+import {Box, Button, Collapse, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@material-ui/core";
 
 class JobAdditionalInformation extends Component {
     render() {

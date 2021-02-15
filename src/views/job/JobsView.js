@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import JobsTable from "./JobsTable";
+import '../../style/JobsView.css'
+
 export default class JobsView extends Component {
     state = {
         jobs: [
@@ -30,7 +32,7 @@ export default class JobsView extends Component {
 
     render() {
         return <div>
-            <h1>Tela de Jobs</h1>
+            <h1 className={"view-header"}>Lista de Trabalhos</h1>
             <JobsTable jobs={this.state.jobs}/>
         </div>
     }

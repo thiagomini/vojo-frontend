@@ -13,6 +13,8 @@ class JobsTable extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell/>
+                            <TableCell/>
+                            <TableCell>Ativo</TableCell>
                             <TableCell>Título</TableCell>
                             <TableCell>Empresa</TableCell>
                             <TableCell>Requisitos</TableCell>
