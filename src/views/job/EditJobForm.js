@@ -5,6 +5,7 @@ import CompensationInputField from "./CompensationInputField";
 import JobWorkingPlaceInput from "./JobWorkingPlaceInput";
 import { defaultInputState } from '../../utils/formDefaultStates'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SuccessSnackBar from "../SuccessSnackBar";
 
 const useStyles = (theme) => createStyles({
     margin: {
@@ -61,6 +62,15 @@ class EditJobForm extends Component {
     handleClickSave = async () => {
         const requestObject = this.createRequestObject(this.state.fields);
         await this.updateJob(requestObject);
+    }
+
+    handleCloseSnackBar = () => {
+        this.setState({
+            updateData: {
+                ...this.state.updateData,
+                success: false
+            }
+        })
     }
 
     setCompensation = (value, nestedField) => {
@@ -151,10 +161,10 @@ class EditJobForm extends Component {
     render() {
         const { classes } = this.props;
         const { fields } = this.state;
-        console.log('EditJobForm Renderizado')
         return (
-            <form autoComplete="false">
-                <FormGroup aria-label="position" row>
+            <div>
+                <form autoComplete="false">
+                    <FormGroup aria-label="position" row>
                         <FormControlLabel
                             className={classes.margin}
                             checked={fields.active.value}
@@ -163,39 +173,46 @@ class EditJobForm extends Component {
                             label="Ativo"
                             labelPlacement="end"
                         />
-                </FormGroup>
-                <TextField
-                    className={classes.margin}
-                    fullWidth
-                    id="title"
-                    label="Título"
-                    variant="outlined"
-                    defaultValue={fields.title.value}
-                    onChange={(event) => this.handleFieldUpdate('title', event)}
-                    required={true}/>
-                <TextField
-                    className={classes.margin}
-                    fullWidth
-                    id="company"
-                    label="Empresa"
-                    variant="outlined"
-                    defaultValue={fields.company.value}
-                    onChange={(event) => this.handleFieldUpdate('company', event)}
-                />
-                <CompensationInputField
-                    compensation={fields.compensation}
-                    setCompensation = {this.setCompensation}
-                />
-                <JobWorkingPlaceInput
-                    location={fields.location}
-                    setLocation ={this.setLocation}
-                />
+                    </FormGroup>
+                    <TextField
+                        className={classes.margin}
+                        fullWidth
+                        id="title"
+                        label="Título"
+                        variant="outlined"
+                        defaultValue={fields.title.value}
+                        onChange={(event) => this.handleFieldUpdate('title', event)}
+                        required={true}/>
+                    <TextField
+                        className={classes.margin}
+                        fullWidth
+                        id="company"
+                        label="Empresa"
+                        variant="outlined"
+                        defaultValue={fields.company.value}
+                        onChange={(event) => this.handleFieldUpdate('company', event)}
+                    />
+                    <CompensationInputField
+                        compensation={fields.compensation}
+                        setCompensation = {this.setCompensation}
+                    />
+                    <JobWorkingPlaceInput
+                        location={fields.location}
+                        setLocation ={this.setLocation}
+                    />
+
+                </form>
                 {
                     this.state.updateData.isLoading
                         ? <CircularProgress/>
-                        : <Button onClick={this.handleClickSave} color="primary">Salvar Alterações</Button>
+                        : <Button onClick={this.handleClickSave} color="primary" variant="contained">Salvar Alterações</Button>
                 }
-            </form>
+                <SuccessSnackBar
+                    open={this.state.updateData.success}
+                    message={'Trabalho Atualizado com Sucesso!'}
+                    handleClose={this.handleCloseSnackBar}
+                />
+            </div>
         );
     }
 }

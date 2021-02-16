@@ -20,7 +20,6 @@ const useStyles = createStyles((theme) => ({
 class CompensationInputField extends Component {
 
     render() {
-        console.log('CompensationInputField Renderizado')
         const { classes, setCompensation, compensation } = this.props;
         return (
             <div className={classes.root}>
@@ -33,6 +32,8 @@ class CompensationInputField extends Component {
                     label="Quantidade"
                     variant="outlined"
                     defaultValue={compensation.amount.value}
+                    type="number"
+                    required={true}
                     onChange={(event) => setCompensation(event.target.value, 'amount')}
                 />
                 <TextField
@@ -40,6 +41,7 @@ class CompensationInputField extends Component {
                     id="currency"
                     label="Moeda"
                     variant="outlined"
+                    required={true}
                     defaultValue={compensation.currency.value}
                     onChange={(event) => setCompensation(event.target.value, 'currency')}
                 />
@@ -48,6 +50,7 @@ class CompensationInputField extends Component {
                     id="recurrency"
                     label="Frequência"
                     variant="outlined"
+                    required={true}
                     defaultValue={compensation.recurrency.value}
                     onChange={(event) => setCompensation(event.target.value, 'recurrency')}
                 />
