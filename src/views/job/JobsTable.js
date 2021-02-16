@@ -4,9 +4,12 @@ import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow}
 
 class JobsTable extends Component {
     render() {
+        const jobsSet = this.props.jobsSet;
+
         const rows = this.props.jobs.map((job) =>
-            <JobRow job={job} key={job._id}/>
+            <JobRow jobsSet={jobsSet} job={job} key={job._id}/>
         )
+
         return (
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">

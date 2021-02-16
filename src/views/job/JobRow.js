@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import {KeyboardArrowDown, KeyboardArrowUp} from "@material-ui/icons";
 import {green} from "@material-ui/core/colors";
+import EditJobModal from "./EditJobModal";
 
 const useRowStyles = (styles => ({
     root: {
@@ -40,12 +41,9 @@ class JobRow extends Component {
         }))
     }
 
-    editRow = () => {
-        console.log('Editing job' + this.props.job)
-    }
 
     render() {
-        const { job, classes } = this.props;
+        const { job, classes, jobsSet } = this.props;
         const activeStatus = job.active
             ? <CheckCircleOutlineIcon style={{color: green[500]}}/>
             : <HighlightOffIcon color="secondary"/>
@@ -59,9 +57,7 @@ class JobRow extends Component {
                         </IconButton>
                    </TableCell>
                    <TableCell>
-                       <IconButton aria-label="edit row" size="small" onClick={this.editRow}>
-                           <EditIcon/>
-                       </IconButton>
+                       <EditJobModal job={job} jobsSet={jobsSet}/>
                    </TableCell>
                    <TableCell component="th" scope="row" align="center">
                        {activeStatus}

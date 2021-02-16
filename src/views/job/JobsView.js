@@ -12,7 +12,7 @@ export default class JobsView extends Component {
         this.jobsSet();
     }
 
-    async jobsSet() {
+    jobsSet = async () => {
         const response = await fetch(`${process.env.REACT_APP_API}/v3/jobs`, {
             method:"GET",
             headers: {
@@ -33,7 +33,7 @@ export default class JobsView extends Component {
     render() {
         return <div>
             <h1 className={"view-header"}>Lista de Trabalhos</h1>
-            <JobsTable jobs={this.state.jobs}/>
+            <JobsTable jobs={this.state.jobs} jobsSet={this.jobsSet}/>
         </div>
     }
 }
