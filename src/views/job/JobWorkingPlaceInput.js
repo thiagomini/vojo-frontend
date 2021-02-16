@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Checkbox, FormControlLabel, FormGroup, TextField, Typography} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
+import {TextField, Typography} from "@material-ui/core";
+import {createStyles, withStyles} from "@material-ui/core/styles";
 
-const useStyles = ((theme) => ({
+const useStyles = ((theme) => createStyles({
     margin: {
         margin: theme.spacing(2),
         width: '25ch'

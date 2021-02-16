@@ -1,35 +1,43 @@
 import React, {Component} from 'react';
-import {Button, Checkbox, FormControlLabel, FormGroup, TextField} from "@material-ui/core";
+import {Button, Checkbox, createStyles, FormControlLabel, FormGroup, TextField} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import CompensationInputField from "./CompensationInputField";
 import JobWorkingPlaceInput from "./JobWorkingPlaceInput";
 import { defaultInputState } from '../../utils/formDefaultStates'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = ((theme) => ({
+const useStyles = (theme) => createStyles({
     margin: {
         margin: theme.spacing(1),
     },
     'text-field': {
         width: '50ch'
     }
-}));
+});
 
 class EditJobForm extends Component {
 
-    state = {
-        jobId: this.props.job._id,
-        fields: {
-            active: { ...defaultInputState, value: this.props.job.active },
-            title: { ...defaultInputState, value: this.props.job.title },
-            company: { ...defaultInputState,value: this.props.job.company },
-            compensation: { ...defaultInputState, value: this.props.job.compensation },
-            location: { ...defaultInputState, value: this.props.job.location },
-        },
-        updateData: {
-            isLoading: false,
-            error: null,
-            success: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            jobId: this.props.job._id,
+            fields: {
+                active: { ...defaultInputState, value: this.props.job.active },
+                title: { ...defaultInputState, value: this.props.job.title },
+                company: { ...defaultInputState,value: this.props.job.company },
+                compensation: {
+                    amount: {...defaultInputState, value: this.props.job.compensation.amount},
+                    currency: {...defaultInputState, value: this.props.job.compensation.currency},
+                    recurrency: {...defaultInputState, value: this.props.job.compensation.recurrency},
+                    isVariable: {...defaultInputState, value: this.props.job.compensation.isVariable},
+                },
+                location: { ...defaultInputState, value: this.props.job.location },
+            },
+            updateData: {
+                isLoading: false,
+                error: null,
+                success: false
+            }
         }
     }
 
@@ -47,14 +55,49 @@ class EditJobForm extends Component {
     }
 
     handleClickSave = async () => {
-        const requestObject = this.createRequestObject();
+        const requestObject = this.createRequestObject(this.state.fields);
         await this.updateJob(requestObject);
     }
 
-    createRequestObject = () => {
+    setCompensation = (value, nestedField) => {
+        this.setState((previousState) => {
+            const compensation = previousState.fields.compensation;
+            compensation[nestedField].value = value
+
+            const newFields = {
+                ...previousState.fields,
+                compensation
+            }
+
+            return {
+                ...previousState,
+                fields: newFields
+            }
+        })
+    }
+
+    setLocation = (event, nestedField) => {
+        const newValue = event.target.value
+        this.setState((previousState) => {
+            const location = previousState.fields.location;
+            location[nestedField].value = newValue
+
+            const newFields = {
+                ...previousState.fields,
+                location: location
+            }
+
+            return {
+                ...previousState,
+                fields: newFields
+            }
+        })
+    }
+
+    createRequestObject = (fields) => {
         let requestObject = {}
-        Object.entries(this.state.fields).forEach(([key, data]) => {
-            requestObject[key] = data.value
+        Object.entries(fields).forEach(([key, data]) => {
+            requestObject[key] = data.hasOwnProperty('value') ? data.value : this.createRequestObject(data)
         })
         return requestObject;
     }
@@ -104,8 +147,9 @@ class EditJobForm extends Component {
     render() {
         const { classes } = this.props;
         const { fields } = this.state;
+        console.log('EditJobForm Renderizado')
         return (
-            <form autoComplete={false}>
+            <form autoComplete="false">
                 <FormGroup aria-label="position" row>
                         <FormControlLabel
                             className={classes.margin}
@@ -132,11 +176,16 @@ class EditJobForm extends Component {
                     label="Empresa"
                     variant="outlined"
                     defaultValue={fields.company.value}
-                    style={{width: '50ch'}}
                     onChange={(event) => this.handleFieldUpdate('company', event)}
                 />
-                <CompensationInputField compensation={fields.compensation.value}/>
-                <JobWorkingPlaceInput location={fields.location.value}/>
+                <CompensationInputField
+                    compensation={fields.compensation}
+                    setCompensation = {this.setCompensation}
+                />
+                <JobWorkingPlaceInput
+                    location={fields.location}
+                    setLocation ={this.setLocation}
+                />
                 {
                     this.state.updateData.isLoading
                         ? <CircularProgress/>

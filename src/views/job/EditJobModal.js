@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import EditIcon from "@material-ui/icons/Edit";
-import {Backdrop, Fade, IconButton, Modal} from "@material-ui/core";
+import {Backdrop, createStyles, Fade, IconButton, Modal} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import EditJobForm from "./EditJobForm";
 
-const useStyles = ((theme) => ({
+const useStyles = ((theme) => createStyles({
     modal: {
         display: 'flex',
         alignItems: 'center',

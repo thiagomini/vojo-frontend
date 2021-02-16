@@ -3,10 +3,9 @@ import JobRequirementsList from "./JobRequirementsList";
 import JobCompensantion from "./JobCompensantion";
 import JobWorkingPlace from "./JobWorkingPlace";
 import JobAdditionalInformation from "./JobAdditionalInformation";
-import {withStyles} from "@material-ui/core/styles";
+import {createStyles, withStyles} from "@material-ui/core/styles";
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import EditIcon from '@material-ui/icons/Edit';
 
 import {
     Collapse,
@@ -18,7 +17,7 @@ import {KeyboardArrowDown, KeyboardArrowUp} from "@material-ui/icons";
 import {green} from "@material-ui/core/colors";
 import EditJobModal from "./EditJobModal";
 
-const useRowStyles = (styles => ({
+const useRowStyles = (() => createStyles({
     root: {
         '& > *': {
             borderBottom: 'unset',
