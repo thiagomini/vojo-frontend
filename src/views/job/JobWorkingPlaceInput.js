@@ -18,22 +18,39 @@ const useStyles = ((theme) => createStyles({
 }));
 
 class JobWorkingPlaceInput extends Component {
-    state = {
-        location: this.props.location
-    }
 
     render() {
-        const { classes } = this.props;
-        const { location } = this.state;
+        const { classes, location, setLocation } = this.props;
 
         return (
             <div className={classes.root}>
                 <Typography className={classes.padding} variant="h6" gutterBottom component="div">
                     Localização
                 </Typography>
-                <TextField className={classes.margin} id="city" label="Cidade" variant="outlined" defaultValue={location.city}/>
-                <TextField className={classes.margin} id="state" label="Estado" variant="outlined" defaultValue={location.state}/>
-                <TextField className={classes.margin} id="country" label="País" variant="outlined" defaultValue={location.country}/>
+                <TextField
+                    className={classes.margin}
+                    id="city"
+                    label="Cidade"
+                    variant="outlined"
+                    defaultValue={location.city.value}
+                    onChange={(event) => setLocation(event, 'city')}
+                />
+                <TextField
+                    className={classes.margin}
+                    id="state"
+                    label="Estado"
+                    variant="outlined"
+                    defaultValue={location.state.value}
+                    onChange={(event) => setLocation(event, 'state')}
+                />
+                <TextField
+                    className={classes.margin}
+                    id="country"
+                    label="País"
+                    variant="outlined"
+                    defaultValue={location.country.value}
+                    onChange={(event) => setLocation(event, 'country')}
+                />
             </div>
 
         );

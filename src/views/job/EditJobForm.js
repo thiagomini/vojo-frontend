@@ -31,7 +31,11 @@ class EditJobForm extends Component {
                     recurrency: {...defaultInputState, value: this.props.job.compensation.recurrency},
                     isVariable: {...defaultInputState, value: this.props.job.compensation.isVariable},
                 },
-                location: { ...defaultInputState, value: this.props.job.location },
+                location: {
+                    city: { ...defaultInputState, value: this.props.job.location.city },
+                    state: { ...defaultInputState, value: this.props.job.location.state },
+                    country: { ...defaultInputState, value: this.props.job.location.country },
+                },
             },
             updateData: {
                 isLoading: false,
